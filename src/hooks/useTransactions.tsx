@@ -37,12 +37,17 @@ export function useTransactions() {
     setTarget(value);
   };
 
+  const handleAddTransaction = (id: number, amount: number) => {
+    setTransactions([...transactions, { id, amount }]);
+  };
+
   return {
     target,
     result,
     transactions,
     error,
     handleCheckTransactions,
+    handleAddTransaction,
     handleSetTarget,
     setTransactions,
     setError,

@@ -10,13 +10,9 @@ const PaymentDashboard: React.FC = () => {
     error,
     handleCheckTransactions,
     handleSetTarget,
-    setTransactions,
+    handleAddTransaction,
     setError,
   } = useTransactions();
-
-  const handleAddTransaction = (id: number, amount: number) => {
-    setTransactions([...transactions, { id, amount }]);
-  };
 
   useEffect(() => {
     console.log("handleCheckTransactions");
