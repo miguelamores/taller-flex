@@ -30,7 +30,7 @@ export function useTransactions() {
       }
       setResult("No matching transactions found.");
     },
-    []
+    [transactions]
   );
 
   const handleSetTarget = (value: number | null) => {
