@@ -3,14 +3,14 @@ import "./App.css";
 import { useTransactions } from "./hooks/useTransactions";
 
 const PaymentDashboard: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    { id: 1, amount: 50 },
-    { id: 2, amount: 150 },
-    { id: 3, amount: 200 },
-  ]);
-
-  const { handleCheckTransactions, result, target, handleSetTarget } =
-    useTransactions();
+  const {
+    result,
+    target,
+    transactions,
+    handleCheckTransactions,
+    handleSetTarget,
+    setTransactions,
+  } = useTransactions();
 
   const handleAddTransaction = (id: number, amount: number) => {
     setTransactions([...transactions, { id, amount }]);

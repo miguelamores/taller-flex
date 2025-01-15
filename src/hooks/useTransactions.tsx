@@ -39,6 +39,7 @@ export function useTransactions() {
   return {
     target,
     result,
+    transactions,
     handleCheckTransactions,
     handleSetTarget,
     setTransactions,
