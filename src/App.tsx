@@ -45,10 +45,13 @@ const PaymentDashboard: React.FC = () => {
   return (
     <div>
       <h1>Payment Transaction Dashboard</h1>
-      <form onSubmit={handleAddSubmit}>
+      <h3>Add a new transaction:</h3>
+      <form onSubmit={handleAddSubmit} className="add-form">
+        <div className="input-container">
+          <input type="number" name="amount" placeholder="Add amount" />
+          <button type="submit">Add Transaction</button>
+        </div>
         <span>{error}</span>
-        <input type="number" name="amount" placeholder="Add amount" />
-        <button type="submit">Add Transaction</button>
       </form>
       <ul>
         {transactions.map((transaction) => (
