@@ -7,9 +7,11 @@ const PaymentDashboard: React.FC = () => {
     result,
     target,
     transactions,
+    error,
     handleCheckTransactions,
     handleSetTarget,
     setTransactions,
+    setError,
   } = useTransactions();
 
   const handleAddTransaction = (id: number, amount: number) => {
@@ -27,9 +29,18 @@ const PaymentDashboard: React.FC = () => {
 
   const handleAddSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
     const form = new FormData(e.target as HTMLFormElement);
     const amount = form.get("amount");
-    if (!amount) return;
+
+    if (!amount) {
+      setError("Amount can not be empty");
+      return;
+    }
+    if (Number(amount) <= 0) {
+      setError("Amount can not be negative");
+      return;
+    }
 
     handleAddTransaction(transactions.length + 1, Number(amount));
   };
@@ -38,12 +49,8 @@ const PaymentDashboard: React.FC = () => {
     <div>
       <h1>Payment Transaction Dashboard</h1>
       <form onSubmit={handleAddSubmit}>
-        <input
-          type="number"
-          name="amount"
-          placeholder="Add amount"
-          // onChange={(e) => handleSetTarget(Number(e.target.value))}
-        />
+        <span>{error}</span>
+        <input type="number" name="amount" placeholder="Add amount" />
         <button type="submit">Add Transaction</button>
       </form>
       <ul>

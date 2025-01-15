@@ -9,6 +9,7 @@ export function useTransactions() {
 
   const [target, setTarget] = useState<number | null>(null);
   const [result, setResult] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const handleCheckTransactions = useCallback(
     ({ targetAmount }: { targetAmount: number | null }) => {
@@ -40,8 +41,10 @@ export function useTransactions() {
     target,
     result,
     transactions,
+    error,
     handleCheckTransactions,
     handleSetTarget,
     setTransactions,
+    setError,
   };
 }
