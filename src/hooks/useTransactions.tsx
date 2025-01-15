@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export function useTransactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([
@@ -41,7 +41,10 @@ export function useTransactions() {
     setTransactions([...transactions, { id, amount }]);
   };
 
-  const totalAmount = transactions.reduce((acc, { amount }) => acc + amount, 0);
+  const totalAmount = useMemo(
+    () => transactions.reduce((acc, { amount }) => acc + amount, 0),
+    [transactions]
+  );
 
   return {
     target,
