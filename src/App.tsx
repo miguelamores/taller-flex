@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent } from "react";
 import "./App.css";
 import { useTransactions } from "./hooks/useTransactions";
 
@@ -14,10 +14,6 @@ const PaymentDashboard: React.FC = () => {
     handleAddTransaction,
     setError,
   } = useTransactions();
-
-  useEffect(() => {
-    console.log("handleCheckTransactions");
-  }, [handleCheckTransactions]);
 
   const handleCheckSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
