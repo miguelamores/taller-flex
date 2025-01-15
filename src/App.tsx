@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface Transaction {
+  id: number;
+  amount: number;
 }
 
-export default App
+const PaymentDashboard: React.FC = () => {
+  const [transactions, setTransactions] = useState<Transaction[]>([
+    { id: 1, amount: 50 },
+    { id: 2, amount: 150 },
+    { id: 3, amount: 200 },
+  ]);
+  const [target, setTarget] = useState<number | null>(null);
+  const [result, setResult] = useState<string>("");
+
+  const handleCheckTransactions = () => {
+    if (target === null) return;
+
+    for (let i = 0; i < transactions.length; i++) {
+      for (let j = i + 1; j < transactions.length; j++) {
+        if (transactions[i].amount + transactions[j].amount === target) {
+          setResult(
+            `Transactions ${transactions[i].id} and ${transactions[j].id} add up to ${target}`
+          );
+          return;
+        }
+      }
+    }
+    setResult("No matching transactions found.");
+  };
+
+  const handleAddTransaction = (id: number, amount: number) => {
+    setTransactions([...transactions, { id, amount }]);
+  };
+
+  return (
+    <div>
+      <h1>Payment Transaction Dashboard</h1>
+      <ul>
+        {transactions.map((transaction) => (
+          <li key={transaction.id}>
+            ID: {transaction.id}, Amount: ${transaction.amount}
+          </li>
+        ))}
+      </ul>
+      <input
+        type="number"
+        placeholder="Enter target amount"
+        onChange={(e) => setTarget(Number(e.target.value))}
+      />
+      <button onClick={handleCheckTransactions}>Check Transactions</button>
+      <p>{result}</p>
+    </div>
+  );
+};
+
+export default PaymentDashboard;
