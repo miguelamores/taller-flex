@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import "./App.css";
 import { useTransactions } from "./hooks/useTransactions";
 
@@ -20,6 +20,10 @@ const PaymentDashboard: React.FC = () => {
     console.log("handleCheckTransactions");
   }, [handleCheckTransactions]);
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       <h1>Payment Transaction Dashboard</h1>
@@ -30,14 +34,18 @@ const PaymentDashboard: React.FC = () => {
           </li>
         ))}
       </ul>
-      <input
-        type="number"
-        placeholder="Enter target amount"
-        onChange={(e) => handleSetTarget(Number(e.target.value))}
-      />
-      <button onClick={() => handleCheckTransactions({ targetAmount: target })}>
-        Check Transactions
-      </button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="number"
+          placeholder="Enter target amount"
+          onChange={(e) => handleSetTarget(Number(e.target.value))}
+        />
+        <button
+          onClick={() => handleCheckTransactions({ targetAmount: target })}
+        >
+          Check Transactions
+        </button>
+      </form>
       <p>{result}</p>
     </div>
   );
