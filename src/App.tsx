@@ -1,10 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-
-interface Transaction {
-  id: number;
-  amount: number;
-}
+import { useTransactions } from "./hooks/useTransactions";
 
 const PaymentDashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([
@@ -12,28 +8,17 @@ const PaymentDashboard: React.FC = () => {
     { id: 2, amount: 150 },
     { id: 3, amount: 200 },
   ]);
-  const [target, setTarget] = useState<number | null>(null);
-  const [result, setResult] = useState<string>("");
 
-  const handleCheckTransactions = () => {
-    if (target === null) return;
-
-    for (let i = 0; i < transactions.length; i++) {
-      for (let j = i + 1; j < transactions.length; j++) {
-        if (transactions[i].amount + transactions[j].amount === target) {
-          setResult(
-            `Transactions ${transactions[i].id} and ${transactions[j].id} add up to ${target}`
-          );
-          return;
-        }
-      }
-    }
-    setResult("No matching transactions found.");
-  };
+  const { handleCheckTransactions, result, target, handleSetTarget } =
+    useTransactions();
 
   const handleAddTransaction = (id: number, amount: number) => {
     setTransactions([...transactions, { id, amount }]);
   };
+
+  useEffect(() => {
+    console.log("handleCheckTransactions");
+  }, [handleCheckTransactions]);
 
   return (
     <div>
@@ -48,9 +33,11 @@ const PaymentDashboard: React.FC = () => {
       <input
         type="number"
         placeholder="Enter target amount"
-        onChange={(e) => setTarget(Number(e.target.value))}
+        onChange={(e) => handleSetTarget(Number(e.target.value))}
       />
-      <button onClick={handleCheckTransactions}>Check Transactions</button>
+      <button onClick={() => handleCheckTransactions({ targetAmount: target })}>
+        Check Transactions
+      </button>
       <p>{result}</p>
     </div>
   );
