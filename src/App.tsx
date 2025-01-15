@@ -20,14 +20,32 @@ const PaymentDashboard: React.FC = () => {
     console.log("handleCheckTransactions");
   }, [handleCheckTransactions]);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleCheckSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleCheckTransactions({ targetAmount: target });
+  };
+
+  const handleAddSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.target as HTMLFormElement);
+    const amount = form.get("amount");
+    if (!amount) return;
+
+    handleAddTransaction(transactions.length + 1, Number(amount));
   };
 
   return (
     <div>
       <h1>Payment Transaction Dashboard</h1>
+      <form onSubmit={handleAddSubmit}>
+        <input
+          type="number"
+          name="amount"
+          placeholder="Add amount"
+          // onChange={(e) => handleSetTarget(Number(e.target.value))}
+        />
+        <button type="submit">Add Transaction</button>
+      </form>
       <ul>
         {transactions.map((transaction) => (
           <li key={transaction.id}>
@@ -35,7 +53,7 @@ const PaymentDashboard: React.FC = () => {
           </li>
         ))}
       </ul>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleCheckSubmit}>
         <input
           type="number"
           placeholder="Enter target amount"
