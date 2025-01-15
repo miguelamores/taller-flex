@@ -41,10 +41,13 @@ export function useTransactions() {
     setTransactions([...transactions, { id, amount }]);
   };
 
+  const totalAmount = transactions.reduce((acc, { amount }) => acc + amount, 0);
+
   return {
     target,
     result,
     transactions,
+    totalAmount,
     error,
     handleCheckTransactions,
     handleAddTransaction,

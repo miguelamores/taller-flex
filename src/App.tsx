@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect } from "react";
 import "./App.css";
 import { useTransactions } from "./hooks/useTransactions";
 
@@ -8,6 +8,7 @@ const PaymentDashboard: React.FC = () => {
     target,
     transactions,
     error,
+    totalAmount,
     handleCheckTransactions,
     handleSetTarget,
     handleAddTransaction,
@@ -56,6 +57,7 @@ const PaymentDashboard: React.FC = () => {
           </li>
         ))}
       </ul>
+      <p>Total: {totalAmount}</p>
       <form onSubmit={handleCheckSubmit}>
         <input
           type="number"
