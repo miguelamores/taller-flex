@@ -32,11 +32,15 @@ export function useTransactions() {
     []
   );
 
+  const handleSetTarget = (value: number | null) => {
+    setTarget(value);
+  };
+
   return {
     target,
     result,
     handleCheckTransactions,
-    setTarget,
+    handleSetTarget,
     setTransactions,
   };
 }
