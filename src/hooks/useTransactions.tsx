@@ -10,14 +10,18 @@ export function useTransactions() {
   const [target, setTarget] = useState<number | null>(null);
   const [result, setResult] = useState<string>("");
 
-  const handleCheckTransactions = () => {
-    if (target === null) return;
+  const handleCheckTransactions = ({
+    targetAmount,
+  }: {
+    targetAmount: number | null;
+  }) => {
+    if (targetAmount === null) return;
 
     for (let i = 0; i < transactions.length; i++) {
       for (let j = i + 1; j < transactions.length; j++) {
-        if (transactions[i].amount + transactions[j].amount === target) {
+        if (transactions[i].amount + transactions[j].amount === targetAmount) {
           setResult(
-            `Transactions ${transactions[i].id} and ${transactions[j].id} add up to ${target}`
+            `Transactions ${transactions[i].id} and ${transactions[j].id} add up to ${targetAmount}`
           );
           return;
         }
