@@ -53,15 +53,16 @@ const PaymentDashboard: React.FC = () => {
         </div>
         <span>{error}</span>
       </form>
-      <ul>
+      <ul className="transactions">
         {transactions.map((transaction) => (
           <li key={transaction.id}>
-            ID: {transaction.id}, Amount: ${transaction.amount}
+            <span>ID: {transaction.id}</span>
+            <span>Amount: ${transaction.amount}</span>
           </li>
         ))}
       </ul>
       <p>Total: {totalAmount}</p>
-      <form onSubmit={handleCheckSubmit}>
+      <form onSubmit={handleCheckSubmit} className="check-form">
         <input
           type="number"
           placeholder="Enter target amount"
