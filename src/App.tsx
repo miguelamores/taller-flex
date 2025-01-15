@@ -22,6 +22,7 @@ const PaymentDashboard: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    handleCheckTransactions({ targetAmount: target });
   };
 
   return (
@@ -40,11 +41,7 @@ const PaymentDashboard: React.FC = () => {
           placeholder="Enter target amount"
           onChange={(e) => handleSetTarget(Number(e.target.value))}
         />
-        <button
-          onClick={() => handleCheckTransactions({ targetAmount: target })}
-        >
-          Check Transactions
-        </button>
+        <button type="submit">Check Transactions</button>
       </form>
       <p>{result}</p>
     </div>
